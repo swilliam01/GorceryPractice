@@ -1,0 +1,92 @@
+package com.company;
+
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner keyboard = new Scanner(System.in);
+        Random rand = new Random();
+        String response = "";
+        double total = 0;
+        int counter = 0;
+        ArrayList <GroceryInvoice> groceryIn = new ArrayList<GroceryInvoice>();
+        do {
+            System.out.println("Enter item name :");
+            String name = keyboard.next();
+            System.out.println("Enter item price :");
+            double price = keyboard.nextDouble();
+
+            int index = rand.nextInt(10)+1;
+            groceryIn.add(new GroceryInvoice(name, price,index));
+
+            System.out.println("Would you like to add another item? yes or no :");
+            response = keyboard.next();
+
+        }while (!response.equalsIgnoreCase("no"));
+        System.out.println("Item Name\t\t" + "Price\t\t" + "Quantity\t\t" + "Cost");
+        for (GroceryInvoice grocer2 : groceryIn){
+            System.out.println(grocer2.getItemName()+"\t\t\t"+ grocer2.getItemPrice()+"\t\t\t"+grocer2.getItemQuantity()+"\t\t\t"+
+                    grocer2.getItemCost());
+            total = total + grocer2.getItemCost(); counter++;
+        }
+        System.out.println("Total purchase amount : "+ total);
+        System.out.println("Total number of purchase :" + counter);
+        if (total > 20){
+            System.out.println("You have spent too much today!");
+        }else {
+            System.out.println("Thank you for shopping!");
+        }
+    }
+}
+*******************************************///
+package com.company;
+
+import java.util.Random;
+
+public class GroceryInvoice {
+    private String itemName;
+    private double itemPrice;
+    private int itemQuantity;
+
+    public GroceryInvoice() {
+    }
+
+    public GroceryInvoice(String itemName, double itemPrice, int itemQuantity) {
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
+        this.itemQuantity = itemQuantity;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public double getItemPrice() {
+        return itemPrice;
+    }
+
+    public void setItemPrice(double itemPrice) {
+        this.itemPrice = itemPrice;
+    }
+
+    public int getItemQuantity() {
+        return itemQuantity;
+    }
+
+    public void setItemQuantity(int itemQuantity) {
+        this.itemQuantity = itemQuantity;
+    }
+
+    public double getItemCost(){
+
+        double cost = itemPrice * itemQuantity;
+        return cost;
+    }
+}
